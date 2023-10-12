@@ -16,7 +16,7 @@ namespace CarsApi.Controllers
             {
                 return Ok(context.Cars.ToList());
             }
-        
+
         }
 
         [HttpGet("{id}")]
@@ -25,7 +25,7 @@ namespace CarsApi.Controllers
             using (var context = new CarContext())
             {
                 var result = context.Cars.Where(x => x.Id == id);
-                return Ok(result);
+                return Ok(result.ToList());
 
             }
         }
@@ -44,7 +44,7 @@ namespace CarsApi.Controllers
                     Description = car.Description,
                     CreatedTime = DateTime.Now,
                 };
-                
+
                 context.Cars.Add(request);
                 context.SaveChanges();
 
@@ -53,5 +53,25 @@ namespace CarsApi.Controllers
         }
 
 
+        [HttpDelete("{id}")]
+        public ActionResult Delete(Guid id)
+        {
+
+            using (var context = new CarContext())
+            {
+                var existingCar = context.Cars.FirstOrDefault(x => x.Id == id);
+                context.Cars.Remove(existingCar);
+                context.SaveChanges();
+                return Ok();
+            }
+        }
+    
+    
+    
+    
+    
+    
+    
     }
+
 }
