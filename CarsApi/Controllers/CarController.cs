@@ -52,6 +52,28 @@ namespace CarsApi.Controllers
             return Ok();
         }
 
+        [HttpPut("{id}")]
+        public ActionResult<CarDto> Post(Guid id, UpdateCarDto updateCarDto) 
+        {
+
+            using (var context = new CarContext())
+            {
+
+                var existingCar = context.Cars.FirstOrDefault(x => x.Id == id);
+
+                existingCar.Name = updateCarDto.Name;
+                existingCar.Description = updateCarDto.Description;
+
+                context.Cars.Add(existingCar);
+                context.SaveChanges();
+                return Ok();
+
+            }
+
+
+        }
+
+
 
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
