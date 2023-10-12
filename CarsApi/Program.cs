@@ -1,4 +1,8 @@
+using CarsApi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<CarContext>();
 
 // Add services to the container.
 
