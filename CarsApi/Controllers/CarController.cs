@@ -19,6 +19,17 @@ namespace CarsApi.Controllers
         
         }
 
+        [HttpGet("{id}")]
+        public ActionResult Get(Guid id)
+        {
+            using (var context = new CarContext())
+            {
+                var result = context.Cars.Where(x => x.Id == id);
+                return Ok(result);
+
+            }
+        }
+
 
         [HttpPost]
         public ActionResult<CarDto> Post(CreatedCarDto car)
